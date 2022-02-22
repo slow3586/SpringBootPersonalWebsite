@@ -2,9 +2,11 @@ plugins {
 	id 'org.springframework.boot' version '2.6.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+        id 'war'
+        id 'idea'
 }
 
-group = 'DemianSkv'
+group = 'demianskv'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -19,11 +21,13 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.3'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:2.6.3'
+	implementation 'org.springframework.data:spring-data-keyvalue'
+	runtimeOnly 'mysql:mysql-connector-java:8.0.28'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
