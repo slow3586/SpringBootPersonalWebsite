@@ -12,27 +12,29 @@ import java.util.Optional;
 @RequestMapping("/posts")
 public class PostController {
 
-    private final PostService service;
+    private final PostService postService;
+    private final UserService userService;
 
-    public PostController(PostService service) {
-        this.service = service;
+    public PostController(PostService postService, UserService userService) {
+        this.postService = postService;
+        this.userService = userService;
     }
 
     @GetMapping(path="/id/{id}")
     public @ResponseBody
     Optional<Post> findById(@PathVariable String id) {
         Integer sId = Integer.parseInt(id);
-        return service.findById(sId);
+        return postService.findById(sId);
     }
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Post> findAll() {
-        return service.findAll();
+        return postService.findAll();
     }
 
     @GetMapping(path="/create_empty")
     public ResponseEntity<Post> createEmpty() {
-        Post created = service.createPost();
+        Post created = postService.createPost(userService.findByName("Admin"));
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/id/{id}")
                 .buildAndExpand(created.getId())
@@ -42,7 +44,7 @@ public class PostController {
 
     @PostMapping(path="/add_json")
     public ResponseEntity<Post> createFromJson(@RequestBody Post post) {
-        Post created = service.addPost(post);
+        Post created = postService.addPost(post);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/id/{id}")
                 .buildAndExpand(created.getId())
@@ -57,7 +59,7 @@ public class PostController {
 
     @PostMapping(path="/add_form_func")
     public ResponseEntity<Post> createFromForm(@ModelAttribute(name="postForm") Post post) {
-        Post created = service.addPost(post);
+        Post created = postService.addPost(post);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/id/{id}")
                 .buildAndExpand(created.getId())

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}"/>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+<div class="navbar">
+    <ul class="navbar-list">
+        <li><a href="">Home</a></li>
+        <li><a href="">o.s.b.a.w.s.WelcomePageHandlerMapping</a></li>
+        <li><a href="">Initializing Spring</a></li>
+    </ul>
+</div>
+<div class="header-image-wrapper">
+
+</div>
+<div id="posts-wrapper">
+    <div class="post" th:each="post, status : ${posts}">
+        <div class="postnum" th:text="${status.count}">1</div>
+        <div class="posttext" th:text="${post.text}">John</div>
+    </div>
+</div>
+</body>
+</html>

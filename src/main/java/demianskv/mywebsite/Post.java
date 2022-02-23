@@ -1,31 +1,42 @@
 package demianskv.mywebsite;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
+@Table(name = "posts", schema = "website")
+@Getter
+@Setter
 public class Post  {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    private String text;
 
-    public Integer getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    private String title="";
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Column(nullable = false)
+    @Type(type = "text")
+    private String content="";
 
-    public String getText() {
-        return text;
-    }
+    @Column(nullable = false)
+    private Date createdAt = new Date();
 
-    public void setText(String text) {
-        this.text = text;
+    @Column(nullable = false)
+    private boolean visible = true;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id", nullable = false)
+    private User author;
+
+    private Post(){}
+
+    public Post(User author){
+        this.author = author;
     }
 }

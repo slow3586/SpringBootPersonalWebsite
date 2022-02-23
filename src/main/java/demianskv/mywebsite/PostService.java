@@ -12,8 +12,8 @@ public class PostService {
         this.repository = repository;
     }
 
-    public Post createPost(){
-        Post post = new Post();
+    public Post createPost(User author){
+        Post post = new Post(author);
         return addPost(post);
     }
 
